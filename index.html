@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spring AI in 30 Days | 30 Mins a Day - Learn by Doing with Ollama</title>
+  <meta name="description" content="Master Spring AI in 30 days with 30 minutes of hands-on daily practicals using offline Ollama LLMs. Includes 3 capstone projects: Screener clone, Business Analyst Risk engine, and Trends radar.">
+  <meta name="keywords" content="Spring AI, Spring Boot, Ollama, Local LLM, Java AI, RAG, VectorStore, Function Calling, Screener.in clone">
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+  
+  <!-- Favicon SVG -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
+</head>
+<body>
+
+  <!-- Ambient Glow Background -->
+  <div class="bg-gradient-glow"></div>
+
+  <!-- Sticky Header Navigation -->
+  <header class="site-header">
+    <div class="header-container">
+      <div class="brand" onclick="switchTab('curriculum')">
+        <div class="brand-icon">🌱</div>
+        <div class="brand-text">
+          <h1>Spring AI in 30 Days</h1>
+          <span>30 Mins / Day • Learn by Doing with Ollama</span>
+        </div>
+      </div>
+
+      <nav>
+        <ul class="nav-links">
+          <li>
+            <button class="nav-item-btn active" data-tab="curriculum" onclick="switchTab('curriculum')">
+              🚀 30-Day Labs
+            </button>
+          </li>
+          <li>
+            <button class="nav-item-btn" data-tab="setup" onclick="switchTab('setup')">
+              ⚙️ Ollama & Setup
+            </button>
+          </li>
+          <li>
+            <button class="nav-item-btn" data-tab="projects" onclick="switchTab('projects')">
+              💼 3 Capstone Projects
+            </button>
+          </li>
+          <li>
+            <button class="nav-item-btn" data-tab="configurator" onclick="switchTab('configurator')">
+              ⚡ Config Generator
+            </button>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button id="theme-toggle-btn" class="btn-icon" title="Toggle Light / Dark Mode" onclick="toggleTheme()">
+          ☀️
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-badge">
+      <span>✨ 100% Practical • Zero Framework Frontend • Deployable on GitHub Pages</span>
+    </div>
+    <h2 class="hero-title">
+      Learn <span class="text-gradient">Spring AI</span> by Doing.<br>
+      30 Days. 30 Minutes a Day.
+    </h2>
+    <p class="hero-subtitle">
+      Zero cloud bills. Run cutting-edge open models (Llama 3.2, Mistral, Nomic) on your laptop with Ollama.
+      Every single day includes hands-on code, cURL tests, and runnable Spring Boot 3 microservices.
+    </p>
+
+    <!-- Top Stats & Progress Banner -->
+    <div class="stats-banner">
+      <div class="stat-card">
+        <div class="stat-icon">📅</div>
+        <div class="stat-info">
+          <h4>30</h4>
+          <p>Daily Hands-On Labs</p>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">🦙</div>
+        <div class="stat-info">
+          <h4>Ollama</h4>
+          <p>100% Offline & Free</p>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">🏆</div>
+        <div class="stat-info">
+          <h4>3 Projects</h4>
+          <p>Production Capstones</p>
+        </div>
+      </div>
+
+      <div class="stat-card progress-card">
+        <div style="width: 100%;">
+          <div class="progress-header">
+            <span>Your Learning Progress</span>
+            <strong id="stat-completed-count">0 / 30</strong>
+          </div>
+          <div class="progress-bar-bg">
+            <div id="progress-bar-fill" class="progress-bar-fill"></div>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--text-dim); margin-top: 0.35rem;">
+            <span>Streak: Active</span>
+            <span id="progress-text-percent">0% Complete</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Views Container -->
+  <main class="main-container">
+
+    <!-- View 1: 30-Day Curriculum -->
+    <section id="view-curriculum" class="tab-view active">
+      <div class="curriculum-toolbar">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="curriculum-search" placeholder="Search days by keyword (e.g., RAG, ChatClient, Ollama, Function)...">
+        </div>
+
+        <div class="filter-pills">
+          <button class="filter-pill active" data-filter="all">All (30)</button>
+          <button class="filter-pill" data-filter="fundamentals">Fundamentals</button>
+          <button class="filter-pill" data-filter="prompting">Prompting</button>
+          <button class="filter-pill" data-filter="structured">Structured Data</button>
+          <button class="filter-pill" data-filter="streaming">Streaming & Memory</button>
+          <button class="filter-pill" data-filter="rag">Vector DB & RAG</button>
+          <button class="filter-pill" data-filter="function">Function Calling</button>
+          <button class="filter-pill" data-filter="multimodal">Multimodal</button>
+          <button class="filter-pill" data-filter="devops">DevOps & Cloud</button>
+        </div>
+      </div>
+
+      <!-- 30 Days Dynamic Grid -->
+      <div id="days-grid" class="days-grid">
+        <!-- Rendered via js/app.js -->
+      </div>
+    </section>
+
+    <!-- View 2: Prerequisites & Ollama Setup Guide -->
+    <section id="view-setup" class="tab-view">
+      <div id="setup-guide-content">
+        <!-- Rendered via js/setup-guide.js & js/app.js -->
+      </div>
+    </section>
+
+    <!-- View 3: 3 Capstone Projects -->
+    <section id="view-projects" class="tab-view">
+      <div id="projects-content">
+        <!-- Rendered via js/projects.js & js/app.js -->
+      </div>
+    </section>
+
+    <!-- View 4: Live Ollama Configurator & Playground -->
+    <section id="view-configurator" class="tab-view">
+      <div class="project-hero" style="margin-bottom: 2rem;">
+        <span class="project-badge" style="background: var(--violet-accent); color: #fff;">Interactive Utility</span>
+        <h2 class="project-title">Spring AI + Ollama Configuration Generator</h2>
+        <p class="project-tagline">Customize model hyperparameters and generate production-ready <code>application.yml</code> and Java <code>ChatClient</code> beans in real-time.</p>
+      </div>
+
+      <div class="configurator-layout">
+        <!-- Inputs Card -->
+        <div class="config-form-card">
+          <h3 style="font-size: 1.25rem;">🎛️ Tune Model Parameters</h3>
+
+          <div class="form-group">
+            <label for="cfg-model">Ollama Model</label>
+            <select id="cfg-model">
+              <option value="llama3.2:3b" selected>llama3.2:3b (Fast, 2GB - Daily Chat & Prompts)</option>
+              <option value="mistral:7b">mistral:7b (High Accuracy, 4.1GB - Financial & Risk Analysis)</option>
+              <option value="deepseek-coder">deepseek-coder (Code Generation)</option>
+              <option value="phi3:mini">phi3:mini (Ultra Lightweight, 1.8GB)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="cfg-port">Ollama Base URL Port</label>
+            <input type="number" id="cfg-port" value="11434">
+          </div>
+
+          <div class="form-group">
+            <div class="form-range-val">
+              <label for="cfg-temp">Temperature (Creativity vs Determinism)</label>
+              <span id="cfg-temp-val">0.7</span>
+            </div>
+            <input type="range" id="cfg-temp" min="0.0" max="1.0" step="0.05" value="0.7">
+          </div>
+
+          <div class="form-group">
+            <div class="form-range-val">
+              <label for="cfg-topp">Top-P (Nucleus Sampling)</label>
+              <span id="cfg-topp-val">0.9</span>
+            </div>
+            <input type="range" id="cfg-topp" min="0.1" max="1.0" step="0.05" value="0.9">
+          </div>
+
+          <div class="form-group">
+            <label for="cfg-system">Default System Prompt Instruction</label>
+            <textarea id="cfg-system" rows="3">You are a helpful and precise enterprise Spring AI assistant. Provide concise explanations and production-ready Java code.</textarea>
+          </div>
+        </div>
+
+        <!-- Generated Output Cards -->
+        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+          <div class="code-block-container">
+            <div class="code-block-header">
+              <span class="code-filename">src/main/resources/application.yml</span>
+              <button class="copy-btn" onclick="copyToClipboard(document.getElementById('cfg-yaml-preview').textContent, this)">📋 Copy YAML</button>
+            </div>
+            <pre><code id="cfg-yaml-preview" class="language-yaml"></code></pre>
+          </div>
+
+          <div class="code-block-container">
+            <div class="code-block-header">
+              <span class="code-filename">ChatClientConfig.java</span>
+              <button class="copy-btn" onclick="copyToClipboard(document.getElementById('cfg-java-preview').textContent, this)">📋 Copy Java</button>
+            </div>
+            <pre><code id="cfg-java-preview" class="language-java"></code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Deep-Dive Day Lab Modal -->
+  <div id="day-modal" class="modal-overlay">
+    <div class="modal-content" id="modal-dynamic-content">
+      <!-- Populated via openDayModal(dayNum) in js/app.js -->
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Modern Footer with GitHub Deployment Guide -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h4>🌱 Spring AI in 30 Days</h4>
+        <p>Zero-framework static website. 100% deployable to GitHub Pages.</p>
+        <p style="margin-top: 0.5rem; color: var(--text-dim); font-size: 0.78rem;">
+          Built for Java & Spring Boot developers mastering Agentic AI, RAG, and Ollama.
+        </p>
+      </div>
+
+      <div class="footer-deploy-tip">
+        <h5>🚀 Deploy to GitHub Pages in 60 Seconds:</h5>
+        <p>
+          1. <code>git init && git add . && git commit -m "Initial commit"</code><br>
+          2. Push to your GitHub repository.<br>
+          3. Go to <strong>Settings</strong> → <strong>Pages</strong> → Select <strong>main branch / root</strong> → Click <strong>Save</strong>.<br>
+          Your site will be live instantly with free HTTPS!
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/setup-guide.js"></script>
+  <script src="js/curriculum.js"></script>
+  <script src="js/projects.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
